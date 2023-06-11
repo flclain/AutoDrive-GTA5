@@ -34,6 +34,9 @@ def fleft():
     PressKey(A)
     ReleaseKey(S)
     ReleaseKey(D)
+    time.sleep(t_time)
+    ReleaseKey(A)
+    ReleaseKey(W)
 
 
 def fright():
@@ -41,6 +44,9 @@ def fright():
     PressKey(D)
     ReleaseKey(S)
     ReleaseKey(A)
+    time.sleep(t_time)
+    ReleaseKey(D)
+    ReleaseKey(W)
 
 def reverse():
     PressKey(S)
@@ -91,26 +97,19 @@ def main():
 
                 if pred == 0:
                     straight()
-                    print(">>> W")
 
                 elif pred == 1:
                     for i in range(turn_t): # turn_t
                         fleft()
-                        print(">>> WA")
                 elif pred == 2:
                     for i in range(turn_t): # turn_t
                         fright()
-                        print(">>> WD")
                 elif pred == 3:
                     reverse()  # barely used as of now
                     print(">>> S")
                 elif pred == 4:
-                    print(">>> NO INPUT")
-                    ReleaseKey(A)
-                    PressKey(W)
-                    if random.random() > 0.9:
-                        ReleaseKey(W)
-                    ReleaseKey(D)
+                    reverse()
+                    time.sleep(time_t)
                     ReleaseKey(S)
                     
             

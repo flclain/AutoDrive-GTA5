@@ -17,7 +17,8 @@ import random
 # this is a form of error introduction
 disable_no_input = True if sys.argv[1] == '1' else False
 
-
+if disable_no_input:
+    print("WARNING: `No Input` keybind is disabled for data collection.\n")
 
 def keys_to_output(keys):
    """
@@ -31,9 +32,9 @@ def keys_to_output(keys):
    """
    output = [0,0,0,0,0]
 
-   if 'W' in keys and 'A' in keys:
+   if 'A' in keys and 'W' in keys:
        output[1] = 1
-   elif 'W' in keys and 'D' in keys:
+   elif 'D' in keys and 'W' in keys:
        output[2] = 1
    elif 'S' in keys:
        output[3] = 1
@@ -46,10 +47,10 @@ def keys_to_output(keys):
                 output[1] = 1
            elif choice >= 0.3 and choice < 0.6:
                 output[2] = 1 
-           elif choice >= 0.6 and choice <0.8:
-                output[0] = 1
-           else:
+           elif choice >= 0.6 and choice <0.98:
                 output[3] = 1
+           else:
+                output[0] = 1
        else: # if not then no input will be considered
         output[4] = 1
 

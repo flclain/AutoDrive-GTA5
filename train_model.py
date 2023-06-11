@@ -36,7 +36,11 @@ y = np.stack(train_labels, axis=0)
 
 X = X.astype(float)/255 # normalization for training
 
+del train_imgs
+del train_labels
+
 # custom dataset definition
+print("Loading DataLoader...")
 class DatasetGTA5(Dataset):
     def __init__(self, numpy_data, labels):
         self.data = numpy_data
@@ -99,7 +103,7 @@ for epoch in range(num_epochs):
     correct = 0
     total = 0
 
-    print("\nEpoch #{}:-\n".format(epoch+1))
+    print("\nProgress:-")
     for i, (images, labels) in enumerate(tqdm.tqdm(train_loader)):
         # move tensors to devices
         images = images.to(device)
