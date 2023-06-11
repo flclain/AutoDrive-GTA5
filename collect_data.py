@@ -6,6 +6,17 @@ import cv2
 import time
 from getkeys import key_check
 import os
+import sys
+import random
+
+
+## arguments reference
+# disable do nothing
+# do nothing is randomly replaced by some error input
+
+# this is a form of error introduction
+disable_no_input = True if sys.argv[1] == '1' else False
+
 
 
 def keys_to_output(keys):
@@ -29,7 +40,18 @@ def keys_to_output(keys):
    elif 'W' in keys:
        output[0] = 1
    else:
-       output[4] = 1
+       if disable_no_input: # if no input option is disabled
+           choice = random.random()
+           if choice >= 0 and choice < 0.3:
+                output[1] = 1
+           elif choice >= 0.3 and choice < 0.6:
+                output[2] = 1 
+           elif choice >= 0.6 and choice <0.8:
+                output[0] = 1
+           else:
+                output[3] = 1
+       else: # if not then no input will be considered
+        output[4] = 1
 
    return output
 

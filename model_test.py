@@ -107,7 +107,8 @@ def main():
                 elif pred == 4:
                     print(">>> NO INPUT")
                     ReleaseKey(A)
-                    if random.random() > 0.65:
+                    PressKey(W)
+                    if random.random() > 0.9:
                         ReleaseKey(W)
                     ReleaseKey(D)
                     ReleaseKey(S)
