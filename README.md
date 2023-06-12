@@ -20,6 +20,42 @@ Temporarily made public. Will be privated soon.
 
 - Due to time constraints, we were able to generate just 1.5 GB worth of data. The model requires a huge amount of data to have enough values for `rare` inputs such as `reverse()` or take into consideration `rare cases` such as turns or sharp turns.
 
+### Workflow / Steps to recreate
+1.  First, ensure that you are playing the gta game in windowed 800x600 resolution. Move the game window to the top left.
+2. Now open your conda shell, activate your environment with all requirements installed.
+3. **Collecting data**: for data collection you need to run, `python collect_data.py 0` or `python collect_data.py 1`. At option `1`, the data collection introduces noise/error in real time to the output labels instead of the `no input` label. If `0` is selected then `no input` option is taken into consideration. You can use the above map for reference to generate data in the same scenarios. We also links to our own data collection on google drive. [Here is the link to the folder with the data](https://drive.google.com/drive/folders/1azfugKU4pLni8HcxljjdaoFlpzhjOmu-?usp=sharing). You can find data in `Data` folder as `.npy` files.
+    - Note: if you want to pause for a break during data collection, you can toggle the `T` key to pause/unpause.
+    - To **visualize the collected data**, you can run `python visualise_training_data.py`. This will open a cv2 window showing entire sequence of the collected training data along with key labels in cmd. If you want to quit you can press `q` button while cv2 window is active.
+
+4. `python balance_data.py` file can be run to just take a look at class imbalance stats of the data. The balancing of data had been explicitly disabled. Project report explains the reason in detail
+
+5. **Model Training**: For training just run `python train_model.py`. This will take on average a time of 2 hrs on 1.5 GB worth of data. If you want you can explicitly increase the `batch_size` hyperparameter to increase the `time/epoch`. Epochs can be increased too but it will take a huge amount of time (in scale of days).
+
+6.  **Deployment**: To test our model in deployment. Keep the game window on top left. Run command `python model_test.py`. A countdown will start from 4 for you to recuperate your attention back to the game screen. You can toggle `T` key to pause/unpause the simulation of the inputs in the game.
+
+
+If you do not have the ability to play GTA5, you can atleast work with step 3b to visualise the data. You can run Step 4 as well to see class distribution stats. You can train the model in Step 5. But Step 6 does require that you have an instance of gta 5 running.
+
+
+### Saved Data and Model
+
+- Model weights are saved [here](./ModelSaves/inceptv3_model.pth)
+- Training data can be found [here](https://drive.google.com/drive/folders/1IJPymguhy9dnGSijwE7e7idwzmnaMqNJ?usp=drive_link)
+
+
+
+
+#### Working with NativeTrainer
+
+- Pressing `F4` to toggle the NativeTrainer mod menu options in the game
+- Go to `Vehicle spawne`r in `Vehicles` option. Go to list 4/6 and spawn "Pegassi" bike.
+- You can use `teleport to marker` option in `Locations` tab to spawn to different routes quickly
+- No traffic scenario was simulated for data collection. Traffic lights were considered during data collection.
+
+
+
+
+
 ### Challenges
 
 - Capturing the screen with high FPS value. Initially, we used ImageGrab from PIL library to perform the screen capture and then visualise and perform feature engineering using OpenCV library. However, the FPS was at a dwindling rate of `10-15`. Afterwards, we made use of `grabscreen` API which we build using win32gui and win32api.<sup><abbr title="Details and references for code are in the grab_screen.py file.">Note</abbr></sup>. This led to a dramatic increase in FPS to `83.5 fps` to `100 fps`.
@@ -49,35 +85,7 @@ Temporarily made public. Will be privated soon.
 - Increasing training set size will require more training time. For instance, training nearly 2GB of collected training data on just few route scenarios takes the model 4-5 minutes at minimum per epoch. The model is being trained for 25 epochs in average. So the total (minm) training time is at an estimate of 2 hours. 
 - We are performing Minibatch optimization, one way to speedup process is to increase batch size for training part. However, need to take into consideration the GPU memory constraints.
 
-### Saved Data and Model
 
-- Model weights are saved [here](./ModelSaves/inceptv3_model.pth)
-- Training data can be found [here](https://drive.google.com/drive/folders/1IJPymguhy9dnGSijwE7e7idwzmnaMqNJ?usp=drive_link)
-
-### Workflow / Steps to recreate
-1.  First, ensure that you are playing the gta game in windowed 800x600 resolution. Move the game window to the top left.
-2. Now open your conda shell, activate your environment with all requirements installed.
-3. **Collecting data**: for data collection you need to run, `python collect_data.py 0` or `python collect_data.py 1`. At option `1`, the data collection introduces noise/error in real time to the output labels instead of the `no input` label. If `0` is selected then `no input` option is taken into consideration. You can use the above map for reference to generate data in the same scenarios. We also links to our own data collection on google drive. [Here is the link to the folder with the data](https://drive.google.com/drive/folders/1azfugKU4pLni8HcxljjdaoFlpzhjOmu-?usp=sharing). You can find data in `Data` folder as `.npy` files.
-    - Note: if you want to pause for a break during data collection, you can toggle the `T` key to pause/unpause.
-    - To **visualize the collected data**, you can run `python visualise_training_data.py`. This will open a cv2 window showing entire sequence of the collected training data along with key labels in cmd. If you want to quit you can press `q` button while cv2 window is active.
-
-4. `python balance_data.py` file can be run to just take a look at class imbalance stats of the data. The balancing of data had been explicitly disabled. Project report explains the reason in detail
-
-5. **Model Training**: For training just run `python train_model.py`. This will take on average a time of 2 hrs on 1.5 GB worth of data. If you want you can explicitly increase the `batch_size` hyperparameter to increase the `time/epoch`. Epochs can be increased too but it will take a huge amount of time (in scale of days).
-
-6.  **Deployment**: To test our model in deployment. Keep the game window on top left. Run command `python model_test.py`. A countdown will start from 4 for you to recuperate your attention back to the game screen. You can toggle `T` key to pause/unpause the simulation of the inputs in the game.
-
-
-If you do not have the ability to play GTA5, you can atleast work with step 3b to visualise the data. You can run Step 4 as well to see class distribution stats. You can train the model in Step 5. But Step 6 does require that you have an instance of gta 5 running.
-
-
-
-#### Working with NativeTrainer
-
-- Pressing `F4` to toggle the NativeTrainer mod menu options in the game
-- Go to `Vehicle spawne`r in `Vehicles` option. Go to list 4/6 and spawn "Pegassi" bike.
-- You can use `teleport to marker` option in `Locations` tab to spawn to different routes quickly
-- No traffic scenario was simulated for data collection. Traffic lights were considered during data collection.
 
 
 ### Files
