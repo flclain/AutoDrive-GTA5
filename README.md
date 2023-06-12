@@ -20,8 +20,17 @@ Temporarily made public. Will be privated soon.
 
 - Due to time constraints, we were able to generate just 1.5 GB worth of data. The model requires a huge amount of data to have enough values for `rare` inputs such as `reverse()` or take into consideration `rare cases` such as turns or sharp turns.
 
-### Evaluation
+### Challenges
 
+- Capturing the screen with high FPS value. Initially, we used ImageGrab from PIL library to perform the screen capture and then visualise and perform feature engineering using OpenCV library. However, the FPS was at a dwindling rate of `10-15`. Afterwards, we made use of `grabscreen` API which we build using win32gui and win32api.<sup><abbr title="Details and references for code are in the grab_screen.py file.">Note</abbr></sup>. This led to a dramatic increase in FPS to `83.5 fps` to `100 fps`.
+
+- Feature Engineering was one part that was initially done manually. We generated an `ROI` mask, added edge detection and lane generation. These additions were redundant for the deep learning model as it has the ability to do feature engineering itself. Also this process was hindering with the FPS capture in the game. It was necessary things such as image resizing and ROI calculation be performed along with the capture. This part added extra redundancy and was later removed
+
+- Data Volume. The size of data collected is small compared to wide variety of scenarios and routes that might occur in the game. We reduced our data collection to specific scenarios and routes only. The model requires large amount of data to perform well in simulation.
+
+- With regards to class imbalance in our data, we performed reduction of values in classe with large number values down to the numbers for class with lowest values. This led to decrease in data and bias in model. We avoided performing class balance and it led to one output dominating the simulation. So we tried to perform class balancing in the data in real time and used `python balance_data.py` simultaneously to check the class balance statistics and adjust for it while data collection.
+
+- Selecting Ground Truth Labels. We used limited ground truth labels to consider the movements - `Forward Left`, `Forward`, `Forward Right`, `Stop/Reverse` and `No Input`. We tried our best to capture these movements using the combinations of the keys W, A, S and D. Other input events or ECU data/events were not considered because of lack of better ways to capture such information without hindering the image data capture process.
 
 ### Comparative Analysis
 
@@ -40,7 +49,9 @@ Temporarily made public. Will be privated soon.
 - Increasing training set size will require more training time. For instance, training nearly 2GB of collected training data on just few route scenarios takes the model 4-5 minutes at minimum per epoch. The model is being trained for 25 epochs in average. So the total (minm) training time is at an estimate of 2 hours. 
 - We are performing Minibatch optimization, one way to speedup process is to increase batch size for training part. However, need to take into consideration the GPU memory constraints.
 
+#### Data and Model
 
+- Model weights are saved [here]()
 
 ### Workflow / Steps to recreate
 - First, ensure that you are playing the gta game in windowed 800x600 resolution. Move the game window to the top left.
@@ -54,3 +65,11 @@ Temporarily made public. Will be privated soon.
 - **Model Training**: For training just run `python train_model.py`. This will take on average a time of 2 hrs on 1.5 GB worth of data. If you want you can explicitly increase the `batch_size` hyperparameter to increase the `time/epoch`. Epochs can be increased too but it will take a huge amount of time (in scale of days).
 
 - **Deployment**: To test our model in deployment. Keep the game window on top left. Run command `python model_test.py`. A countdown will start from 4 for you to recuperate your attention back to the game screen. You can toggle `T` key to pause/unpause the simulation of the inputs in the game.
+
+
+#### Working with NativeTrainer
+
+- Pressing `F4` to toggle the NativeTrainer mod menu options in the game
+- Go to `Vehicle spawne`r in `Vehicles` option. Go to list 4/6 and spawn "Pegassi" bike.
+- You can use `teleport to marker` option in `Locations` tab to spawn to different routes quickly
+- No traffic scenario was simulated for data collection. Traffic lights were considered during data collection.
