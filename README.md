@@ -1,6 +1,7 @@
 # AutoDrive GTA5
  Autonomous Driving simulation in GTA 5 game
 
+Temporarily made public. Will be privated soon.
 
 ### Requirements
 
@@ -45,6 +46,7 @@
 - Now open your conda shell, activate your environment with all requirements installed.
 - **Collecting data**: for data collection you need to run, `python collect_data.py 0` or `python collect_data.py 1`. At option `1`, the data collection introduces noise/error in real time to the output labels instead of the `no input` label. If `0` is selected then `no input` option is taken into consideration. You can use the above map for reference to generate data in the same scenarios. We also links to our own data collection on google drive. [Here is the link to the folder with the data](https://drive.google.com/drive/folders/1azfugKU4pLni8HcxljjdaoFlpzhjOmu-?usp=sharing). You can find data in `Data` folder as `.npy` files.
     - Note: if you want to pause for a break during data collection, you can toggle the `T` key to pause/unpause.
+    - To **visualize the collected data**, you can run `python visualise_training_data.py`. This will open a cv2 window showing entire sequence of the collected training data along with key labels in cmd. If you want to quit you can press `q` button while cv2 window is active.
 
 - `python balance_data.py` file can be run to just take a look at class imbalance stats of the data. The balancing of data had been explicitly disabled. Project report explains the reason in detail
 
