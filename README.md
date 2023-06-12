@@ -49,9 +49,10 @@ Temporarily made public. Will be privated soon.
 - Increasing training set size will require more training time. For instance, training nearly 2GB of collected training data on just few route scenarios takes the model 4-5 minutes at minimum per epoch. The model is being trained for 25 epochs in average. So the total (minm) training time is at an estimate of 2 hours. 
 - We are performing Minibatch optimization, one way to speedup process is to increase batch size for training part. However, need to take into consideration the GPU memory constraints.
 
-#### Data and Model
+### Saved Data and Model
 
-- Model weights are saved [here]()
+- Model weights are saved [here](./ModelSaves/inceptv3_model.pth)
+- Training data can be found [here](./Data/)
 
 ### Workflow / Steps to recreate
 - First, ensure that you are playing the gta game in windowed 800x600 resolution. Move the game window to the top left.
