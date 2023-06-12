@@ -21,6 +21,8 @@ n_classes = 5
 t_time = 0.05
 
 
+# time threshold
+time_t = 0.09
 
 def straight():
     PressKey(W)
@@ -36,7 +38,6 @@ def fleft():
     ReleaseKey(D)
     time.sleep(t_time)
     ReleaseKey(A)
-    ReleaseKey(W)
 
 
 def fright():
@@ -46,7 +47,6 @@ def fright():
     ReleaseKey(A)
     time.sleep(t_time)
     ReleaseKey(D)
-    ReleaseKey(W)
 
 def reverse():
     PressKey(S)
@@ -61,11 +61,6 @@ model = model.to(device)
 model.load_state_dict(torch.load('./ModelSaves/inceptv3_model.pth'))
 
 
-# time threshold
-time_t = 0.09
-
-# turns threshold - amount of times to run it
-turn_t = 3
 
 def main():
     # countdown timer
@@ -73,8 +68,6 @@ def main():
         print(i+1)
         time.sleep(1)
     
-    last_time = time.time()
-
     while True:
         paused = False
         #last_time = time.time()
@@ -97,20 +90,21 @@ def main():
 
                 if pred == 0:
                     straight()
-
+                    #print("Forward")
                 elif pred == 1:
-                    for i in range(turn_t): # turn_t
-                        fleft()
+                    fleft()
+                    #print("Left")
                 elif pred == 2:
-                    for i in range(turn_t): # turn_t
-                        fright()
+                    fright() 
+                    #print("Right")
                 elif pred == 3:
-                    reverse()  # barely used as of now
-                    print(">>> S")
-                elif pred == 4:
                     reverse()
-                    time.sleep(time_t)
-                    ReleaseKey(S)
+                      # barely used as of now
+                elif pred == 4:
+                    # do nothing
+                    time.sleep(1)
+                    
+                
                     
             
 
