@@ -74,3 +74,26 @@ Temporarily made public. Will be privated soon.
 - Go to `Vehicle spawne`r in `Vehicles` option. Go to list 4/6 and spawn "Pegassi" bike.
 - You can use `teleport to marker` option in `Locations` tab to spawn to different routes quickly
 - No traffic scenario was simulated for data collection. Traffic lights were considered during data collection.
+
+
+### Files
+
+Briefly explains all the files that are being used in the project below.
+
+- **collect_data.py**: This file helps collect data from the game. The file takes one input argument from choices in {0,1}. If 1 option is selected then noise is introduced into the labels insteadd of `no input` label option. Data is saved in disk after every 500 captures. Data collection can be paused by toggling `T` key.
+
+- **visualise_training_data.py**: This file is used to run a sequence of training data captured so far.
+
+- **balance_data.py**: Mainly a redundant file as of now. Can be used to check the class label distribution statistics.
+
+- **inception_v3.py**: Contains the Inception v3 model definition in pytorch
+
+- **train_data.py**: trains our inception 3 model ising minibatch optimization and evaluates it on validation data. Saves the model weights at the end of training.
+
+- **directkeys.py**: Makes use of ctypes library to account for keyboard events such as KeyPress or KeyRelease
+
+- **getkeys.py**: Captures the key that was pressed and returns a list of those values
+
+- **grabscreen.py**: An API built over win32gui and win32api to capture the game screen
+
+- **model_test.py**: Deploy our trained model in the game and simulate the AI.
