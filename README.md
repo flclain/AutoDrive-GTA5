@@ -52,7 +52,7 @@ Temporarily made public. Will be privated soon.
 ### Saved Data and Model
 
 - Model weights are saved [here](./ModelSaves/inceptv3_model.pth)
-- Training data can be found [here](./Data/)
+- Training data can be found [here](https://drive.google.com/drive/folders/1IJPymguhy9dnGSijwE7e7idwzmnaMqNJ?usp=drive_link)
 
 ### Workflow / Steps to recreate
 - First, ensure that you are playing the gta game in windowed 800x600 resolution. Move the game window to the top left.
