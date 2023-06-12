@@ -40,7 +40,7 @@
 
 
 
-#### Workflow to regenerate
+### Workflow / Steps to recreate
 - First, ensure that you are playing the gta game in windowed 800x600 resolution. Move the game window to the top left.
 - Now open your conda shell, activate your environment with all requirements installed.
 - **Collecting data**: for data collection you need to run, `python collect_data.py 0` or `python collect_data.py 1`. At option `1`, the data collection introduces noise/error in real time to the output labels instead of the `no input` label. If `0` is selected then `no input` option is taken into consideration. You can use the above map for reference to generate data in the same scenarios. We also links to our own data collection on google drive. [Here is the link to the folder with the data](https://drive.google.com/drive/folders/1azfugKU4pLni8HcxljjdaoFlpzhjOmu-?usp=sharing). You can find data in `Data` folder as `.npy` files.
